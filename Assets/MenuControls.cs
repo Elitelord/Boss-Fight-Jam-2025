@@ -8,7 +8,9 @@ public class MenuControls : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         
     }
-
+    public void OpenSettings(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+2);
+    }
     // Update is called once per frame
     void Update()
     {
