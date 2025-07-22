@@ -1,5 +1,6 @@
 using UnityEngine;
-using TMPro; // TextMeshPro support
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class move : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class move : MonoBehaviour
     public float jumpForce = 7f;
     private Rigidbody2D rb;
     private bool isGrounded;
-    private Vector3 baseScale; // 👈 Stores original scale
+    private Vector3 baseScale;
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
@@ -26,7 +27,16 @@ public class move : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text isJumpingText;
     public TMP_Text jumpText;
-    
+    public TMP_Text healthText; // 👈 NEW: Health display
+
+    [Header("Death Settings")]
+    [SerializeField] private LayerMask killerObstacleLayer;
+
+    [Header("Health Settings")]
+    public int maxHealth = 100;
+    private int currentHealth;
+    public int damagePerHit = 35;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,7 +45,10 @@ public class move : MonoBehaviour
         {
             EquipWeapon(startingWeaponPrefab);
         }
-        baseScale = transform.localScale; // 👈 Cache the original scale
+        baseScale = transform.localScale;
+
+        currentHealth = maxHealth;
+        UpdateHealthDisplay();
     }
 
     void Update()
@@ -44,30 +57,24 @@ public class move : MonoBehaviour
         HandleJump();
         HandleShooting();
 
-        // Animator sync
         animator.SetBool("IsJumping", !isGrounded);
 
-        // Debug UI display
         speedText.text = "Speed: " + animator.GetFloat("Speed").ToString("F2");
         isJumpingText.text = "IsJumping: " + animator.GetBool("IsJumping");
         jumpText.text = "Jump Triggered: " + jumpTriggered;
-        
     }
 
     void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
 
-        // Apply movement
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // Flip sprite to face direction, preserving scale
         if (moveInput < 0)
             transform.localScale = new Vector3(-Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
         else if (moveInput > 0)
             transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
 
-        // Update animator with absolute speed for walk animation
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
     }
 
@@ -92,18 +99,9 @@ public class move : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // Vector2 direction = (mouseWorldPos - transform.position).normalized;
-
-            // GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            // Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            // bulletRb.linearVelocity = direction * bulletSpeed;
             if (currentWeapon != null && Time.time >= nextFireTime)
             {
-                
                 currentWeapon.Shoot();
-
-                
                 nextFireTime = Time.time + currentWeapon.weaponData.fireRate;
             }
         }
@@ -115,20 +113,53 @@ public class move : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (((1 << collision.gameObject.layer) & killerObstacleLayer) != 0)
+        {
+            TakeDamage(damagePerHit);
+        }
     }
+
+    private void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0); // Prevent negative values
+        Debug.Log("Took damage! Current health: " + currentHealth);
+
+        UpdateHealthDisplay();
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void UpdateHealthDisplay()
+    {
+        if (healthText != null)
+        {
+            healthText.text = "Health: " + currentHealth;
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player died!");
+        // animator.SetTrigger("Die");
+        // GetComponent<move>().enabled = false;
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void EquipWeapon(GameObject weaponPrefab)
     {
-        
         if (currentWeapon != null)
         {
             Destroy(currentWeapon.gameObject);
         }
 
-        
         GameObject newWeaponObject = Instantiate(weaponPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
         newWeaponObject.transform.SetParent(weaponHoldPoint);
 
-        
         currentWeapon = newWeaponObject.GetComponent<Weapon>();
         Debug.Log("Equipped weapon: " + newWeaponObject.name); 
     }
