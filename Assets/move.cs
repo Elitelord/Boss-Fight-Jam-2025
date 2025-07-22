@@ -12,6 +12,10 @@ public class move : MonoBehaviour
     [Header("Shooting")]
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
+    [SerializeField] private Transform weaponHoldPoint;
+    public GameObject startingWeaponPrefab;
+    private Weapon currentWeapon;
+    private float nextFireTime = 0f;
 
     [Header("Animator")]
     private Animator animator;
@@ -21,11 +25,15 @@ public class move : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text isJumpingText;
     public TMP_Text jumpText;
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        if (startingWeaponPrefab != null)
+        {
+            EquipWeapon(startingWeaponPrefab);
+        }
     }
 
     void Update()
@@ -41,6 +49,7 @@ public class move : MonoBehaviour
         speedText.text = "Speed: " + animator.GetFloat("Speed").ToString("F2");
         isJumpingText.text = "IsJumping: " + animator.GetBool("IsJumping");
         jumpText.text = "Jump Triggered: " + jumpTriggered;
+        
     }
 
     void HandleMovement()
@@ -77,12 +86,20 @@ public class move : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (mouseWorldPos - transform.position).normalized;
+            // Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // Vector2 direction = (mouseWorldPos - transform.position).normalized;
 
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            bulletRb.linearVelocity = direction * bulletSpeed;
+            // GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            // Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            // bulletRb.linearVelocity = direction * bulletSpeed;
+            if (currentWeapon != null && Time.time >= nextFireTime)
+            {
+                
+                currentWeapon.Shoot();
+
+                
+                nextFireTime = Time.time + currentWeapon.weaponData.fireRate;
+            }
         }
     }
 
@@ -92,5 +109,21 @@ public class move : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+    public void EquipWeapon(GameObject weaponPrefab)
+    {
+        
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+
+        
+        GameObject newWeaponObject = Instantiate(weaponPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
+        newWeaponObject.transform.SetParent(weaponHoldPoint);
+
+        
+        currentWeapon = newWeaponObject.GetComponent<Weapon>();
+        Debug.Log("Equipped weapon: " + newWeaponObject.name); 
     }
 }

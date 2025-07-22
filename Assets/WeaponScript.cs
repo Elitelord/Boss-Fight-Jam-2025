@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
        
-
+        Debug.Log("Shoot() method called on " + gameObject.name);
         if (weaponData.bulletPrefab != null && muzzlePoint != null)
         {
             Instantiate(weaponData.bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
