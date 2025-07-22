@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     
     public void Shoot()
     {
-       -
+       
 
         if (weaponData.bulletPrefab != null && muzzlePoint != null)
         {
