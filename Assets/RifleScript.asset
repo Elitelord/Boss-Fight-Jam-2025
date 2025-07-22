@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: 
   description: 
-  damage: 10
-  fireRate: 0.5
-  maxAmmo: 30
-  bulletPrefab: {fileID: 0}
+  damage: 30
+  fireRate: 0.1
+  maxAmmo: 5
+  bulletPrefab: {fileID: 6860291054331718, guid: aec7535f78211484fa798ab26b9d8c69, type: 3}
   muzzleFlashEffect: {fileID: 0}
   fireSound: {fileID: 0}
