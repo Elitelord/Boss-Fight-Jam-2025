@@ -8,6 +8,7 @@ public class move : MonoBehaviour
     public float jumpForce = 7f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private Vector3 baseScale; // 👈 Stores original scale
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
@@ -34,6 +35,7 @@ public class move : MonoBehaviour
         {
             EquipWeapon(startingWeaponPrefab);
         }
+        baseScale = transform.localScale; // 👈 Cache the original scale
     }
 
     void Update()
@@ -55,14 +57,18 @@ public class move : MonoBehaviour
     void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
+
+        // Apply movement
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // Flip the player
-        if (moveInput != 0)
-            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+        // Flip sprite to face direction, preserving scale
+        if (moveInput < 0)
+            transform.localScale = new Vector3(-Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
+        else if (moveInput > 0)
+            transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
 
-        // Pass signed speed to animator
-        animator.SetFloat("Speed", moveInput);
+        // Update animator with absolute speed for walk animation
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
     }
 
     void HandleJump()
