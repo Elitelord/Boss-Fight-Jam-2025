@@ -15,7 +15,14 @@ public class Weapon : MonoBehaviour
         Debug.Log("Shoot() method called on " + gameObject.name);
         if (weaponData.bulletPrefab != null && muzzlePoint != null)
         {
-            Instantiate(weaponData.bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
+            Debug.Log("Bullet Shot");
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mouseWorldPos - muzzlePoint.position).normalized;
+            
+            GameObject bullet = Instantiate(weaponData.bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            bulletRb.linearVelocity = direction * 10f;
+            // bulletRb.linearVelocity = direction * bulletSpeed;
         }
 
        
