@@ -27,7 +27,8 @@ public class move : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text isJumpingText;
     public TMP_Text jumpText;
-    public TMP_Text healthText; // 👈 NEW: Health display
+    public TMP_Text healthText;
+    public TMP_Text gameOverText; // 👈 Add this in Unity and assign it
 
     [Header("Death Settings")]
     [SerializeField] private LayerMask killerObstacleLayer;
@@ -37,22 +38,73 @@ public class move : MonoBehaviour
     private int currentHealth;
     public int damagePerHit = 35;
 
+    private bool isDead = false;
+    private float deathRotationSpeed = 360f;
+    private float fallSpeed = -10f;
+    private float gameOverTimer = 0f;
+    private bool gameOverDisplayed = false;
+
+    private Collider2D playerCollider;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerCollider = GetComponent<Collider2D>();
+
         if (startingWeaponPrefab != null)
         {
             EquipWeapon(startingWeaponPrefab);
         }
-        baseScale = transform.localScale;
 
+        baseScale = transform.localScale;
         currentHealth = maxHealth;
         UpdateHealthDisplay();
+
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
+        if (isDead)
+        {
+            transform.Rotate(0, 0, deathRotationSpeed * Time.deltaTime);
+            rb.linearVelocity = new Vector2(0, fallSpeed);
+
+            if (!gameOverDisplayed && transform.position.y < -10f)
+            {
+                gameOverDisplayed = true;
+                gameOverTimer = 10f;
+
+                if (gameOverText != null)
+                {
+                    gameOverText.gameObject.SetActive(true);
+                    gameOverText.text = "GAME OVER";
+                }
+
+                Debug.Log("GAME OVER");
+            }
+
+            if (gameOverDisplayed)
+            {
+                gameOverTimer -= Time.unscaledDeltaTime;
+
+                if (gameOverTimer <= 0f)
+                {
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
+                }
+            }
+
+            return;
+        }
+
         HandleMovement();
         HandleJump();
         HandleShooting();
@@ -109,6 +161,8 @@ public class move : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDead) return;
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
@@ -123,7 +177,7 @@ public class move : MonoBehaviour
     private void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        currentHealth = Mathf.Max(currentHealth, 0); // Prevent negative values
+        currentHealth = Mathf.Max(currentHealth, 0);
         Debug.Log("Took damage! Current health: " + currentHealth);
 
         UpdateHealthDisplay();
@@ -145,9 +199,16 @@ public class move : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died!");
-        // animator.SetTrigger("Die");
-        // GetComponent<move>().enabled = false;
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        isDead = true;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 10f;
+
+        // Disable player collider to fall through ground
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = false;
+        }
     }
 
     public void EquipWeapon(GameObject weaponPrefab)
