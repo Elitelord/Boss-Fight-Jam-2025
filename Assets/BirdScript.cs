@@ -1,20 +1,27 @@
+// Enemy.cs
 using UnityEngine;
 
-public class BirdScript : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    public Rigidbody2D myRigidBody;
-    public float flapStrength;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int health = 50;
+
+    public void TakeDamage(float damageAmount)
     {
-        
+        // Subtract damage and convert to an integer
+        health -= (int)damageAmount;
+        Debug.Log(gameObject.name + " took " + damageAmount + " damage. Health is now " + health);
+
+        // Check if the enemy has run out of health
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Die()
     {
-        if (Input.GetKeyDown(KeyCode.Space)==true){
-        myRigidBody.linearVelocity = Vector2.up * flapStrength;
-    }
+        Debug.Log(gameObject.name + " has been defeated!");
+        // You can add explosion effects or sounds here before destroying it
+        Destroy(gameObject);
     }
 }
