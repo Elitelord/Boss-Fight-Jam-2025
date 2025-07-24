@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 40c6af273cc513f41bef9937f94e6566
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 885266608688927804
+    second: "\u2014Pngtree\u2014pistol_1652673_0"
+  - first:
+      213: -3903707333247701782
+    second: "\u2014Pngtree\u2014pistol_1652673_1"
+  - first:
+      213: -1367198631892137496
+    second: "\u2014Pngtree\u2014pistol_1652673_2"
+  - first:
+      213: 8667481120535734261
+    second: "\u2014Pngtree\u2014pistol_1652673_3"
+  - first:
+      213: -2104140045388086812
+    second: "\u2014Pngtree\u2014pistol_1652673_4"
+  - first:
+      213: 5810197651914234059
+    second: "\u2014Pngtree\u2014pistol_1652673_5"
+  - first:
+      213: 576574476279280744
+    second: "\u2014Pngtree\u2014pistol_1652673_6"
+  - first:
+      213: 2863924177759538927
+    second: "\u2014Pngtree\u2014pistol_1652673_7"
+  - first:
+      213: 5112867017963428805
+    second: "\u2014Pngtree\u2014pistol_1652673_8"
+  - first:
+      213: 3248652012859266822
+    second: "\u2014Pngtree\u2014pistol_1652673_9"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_0"
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 296
+        width: 1003
+        height: 576
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c341b6e4a49194c00800000000000000
+      internalID: 885266608688927804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_1"
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 48
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeceea6fcde33d9c0800000000000000
+      internalID: -3903707333247701782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_2"
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 48
+        width: 36
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e94ba8861cb60de0800000000000000
+      internalID: -1367198631892137496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_3"
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 41
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f7efe62824194870800000000000000
+      internalID: 8667481120535734261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_4"
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 67
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e108f4e6c79cc2e0800000000000000
+      internalID: -2104140045388086812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_5"
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 48
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc8182d0bf7f1a050800000000000000
+      internalID: 5810197651914234059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_6"
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 48
+        width: 40
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 864fe2d6e67600800800000000000000
+      internalID: 576574476279280744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_7"
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 48
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fee820fadd3beb720800000000000000
+      internalID: 2863924177759538927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_8"
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 41
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cb5585b67d84f640800000000000000
+      internalID: 5112867017963428805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014pistol_1652673_9"
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 42
+        width: 142
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60795592bc7851d20800000000000000
+      internalID: 3248652012859266822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u2014Pngtree\u2014pistol_1652673_0": 885266608688927804
+      "\u2014Pngtree\u2014pistol_1652673_1": -3903707333247701782
+      "\u2014Pngtree\u2014pistol_1652673_2": -1367198631892137496
+      "\u2014Pngtree\u2014pistol_1652673_3": 8667481120535734261
+      "\u2014Pngtree\u2014pistol_1652673_4": -2104140045388086812
+      "\u2014Pngtree\u2014pistol_1652673_5": 5810197651914234059
+      "\u2014Pngtree\u2014pistol_1652673_6": 576574476279280744
+      "\u2014Pngtree\u2014pistol_1652673_7": 2863924177759538927
+      "\u2014Pngtree\u2014pistol_1652673_8": 5112867017963428805
+      "\u2014Pngtree\u2014pistol_1652673_9": 3248652012859266822
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
