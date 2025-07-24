@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using System.Collections.Generic;
 public class move : MonoBehaviour
 {
     [Header("Movement")]
@@ -15,8 +15,9 @@ public class move : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
     [SerializeField] private Transform weaponHoldPoint;
-    public GameObject startingWeaponPrefab;
+    public List<GameObject> availableWeaponPrefabs = new List<GameObject>();
     private Weapon currentWeapon;
+    private int currentWeaponIndex;
     private float nextFireTime = 0f;
 
     [Header("Animator")]
@@ -41,10 +42,10 @@ public class move : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        if (startingWeaponPrefab != null)
-        {
-            EquipWeapon(startingWeaponPrefab);
-        }
+       if (availableWeaponPrefabs.Count > 0)
+    {
+        EquipWeapon(0); // Equip the weapon at index 0
+    }
         baseScale = transform.localScale;
 
         currentHealth = maxHealth;
@@ -150,17 +151,29 @@ public class move : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void EquipWeapon(GameObject weaponPrefab)
+    public void EquipWeapon(int weaponIndex)
+{
+    // Check if the index is valid and not the currently equipped weapon
+    if (weaponIndex < 0 || weaponIndex >= availableWeaponPrefabs.Count || weaponIndex == currentWeaponIndex)
     {
-        if (currentWeapon != null)
-        {
-            Destroy(currentWeapon.gameObject);
-        }
-
-        GameObject newWeaponObject = Instantiate(weaponPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
-        newWeaponObject.transform.SetParent(weaponHoldPoint);
-
-        currentWeapon = newWeaponObject.GetComponent<Weapon>();
-        Debug.Log("Equipped weapon: " + newWeaponObject.name); 
+        return; // Invalid index or already equipped
     }
+
+    // Destroy the old weapon if one exists
+    if (currentWeapon != null)
+    {
+        Destroy(currentWeapon.gameObject);
+    }
+
+    // Set the new weapon index
+    currentWeaponIndex = weaponIndex;
+    GameObject weaponToEquipPrefab = availableWeaponPrefabs[currentWeaponIndex];
+
+    // Instantiate and parent the new weapon
+    GameObject newWeaponObject = Instantiate(weaponToEquipPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
+    newWeaponObject.transform.SetParent(weaponHoldPoint);
+
+    currentWeapon = newWeaponObject.GetComponent<Weapon>();
+    Debug.Log("Equipped weapon: " + newWeaponObject.name);
+}
 }
