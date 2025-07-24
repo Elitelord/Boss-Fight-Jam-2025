@@ -174,7 +174,7 @@ public class move : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int amount)
+    public void TakeDamage(int amount) // So bullets can access it
     {
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);

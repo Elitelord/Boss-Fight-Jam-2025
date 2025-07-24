@@ -115,7 +115,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &4032895902166318717
 CircleCollider2D:
@@ -165,5 +165,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff7023cda68474cdfb6c18418921fa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  lifetime: 3
+  damage: 0
+  lifetime: 25
