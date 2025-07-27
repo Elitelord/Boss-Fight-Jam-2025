@@ -33,5 +33,15 @@ public class EnemyHealth1 : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        EndGame();
+    }
+
+    void EndGame()
+    {
+        // This will pause the entire game
+        Time.timeScale = 0f;
+
+        // Optional: Show a message on screen (add a public TMP text for this if desired)
+        Debug.Log("Enemy defeated. Game Over.");
     }
 }
