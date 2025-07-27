@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3994028808514319875}
   - component: {fileID: 3720243125266140328}
   - component: {fileID: 4396772884165155881}
-  - component: {fileID: 421764252572416848}
   m_Layer: 0
   m_Name: download-removebg-preview_0
   m_TagString: Bullet
@@ -161,24 +160,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5482687010835307358}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff7023cda68474cdfb6c18418921fa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  lifetime: 3
---- !u!114 &421764252572416848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5482687010835307358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a967f3baa74944109ac3208e00180e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  speed: 10
   damage: 25
-  lifetime: 20
+  lifetime: 4
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512

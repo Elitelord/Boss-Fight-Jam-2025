@@ -1,34 +1,42 @@
-// Bullet.cs
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damage; // This will be set by the weapon that fires it
-    public float lifetime = 5f;
+    [Header("Bullet Settings")]
+    public float speed = 10f;          // Speed of the bullet
+    public int damage = 20;            // Damage dealt to enemies
+    public float lifetime = 2f;        // How long before the bullet is auto-destroyed
+    public LayerMask enemyLayer;       // Layer for detecting enemies
 
-    void Awake()
+    void Start()
     {
-        // Destroy the bullet after a certain time to clean up the scene
+        // Destroy bullet after a set lifetime to avoid clutter
         Destroy(gameObject, lifetime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void Update()
     {
-        // Check if the bullet hit an object with the "Enemy" tag
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            // Get the Enemy script from the object we hit
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                // Call the TakeDamage method on the enemy
-                enemy.TakeDamage(damage);
-            }
-        }
+        // Move bullet forward along its local right direction
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
+    }
 
-        // Destroy the bullet on impact with anything (except maybe the player)
-        if (!collision.gameObject.CompareTag("Player"))
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Check if the object hit is on the enemy layer
+        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
         {
+            // Attempt to deal damage to enemy
+            EnemyHealth1 enemyHealth = collision.GetComponent<EnemyHealth1>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+
+            Destroy(gameObject); // Destroy bullet on impact
+        }
+        else if (!collision.isTrigger)
+        {
+            // If it hits a wall or other solid, destroy the bullet
             Destroy(gameObject);
         }
     }
