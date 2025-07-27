@@ -9,6 +9,12 @@ TagManager:
   - Enemy
   - Level1
   - Level2
+  - Coin
+  - Ground1
+  - Ground2
+  - Ground3
+  - Ground4
+  - Ground5
   layers:
   - Default
   - TransparentFX
@@ -17,9 +23,9 @@ TagManager:
   - Water
   - UI
   - KillerObstacle
-  - 
-  - 
-  - 
+  - Player
+  - Ground
+  - Enemy
   - 
   - 
   - 

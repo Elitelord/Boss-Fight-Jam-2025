@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+
 public class move : MonoBehaviour
 {
     [Header("Movement")]
@@ -29,7 +30,7 @@ public class move : MonoBehaviour
     public TMP_Text isJumpingText;
     public TMP_Text jumpText;
     public TMP_Text healthText;
-    public TMP_Text gameOverText; // 👈 Add this in Unity and assign it
+    public TMP_Text gameOverText;
 
     [Header("Death Settings")]
     [SerializeField] private LayerMask killerObstacleLayer;
@@ -51,20 +52,12 @@ public class move : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-<<<<<<< HEAD
         playerCollider = GetComponent<Collider2D>();
 
-        if (startingWeaponPrefab != null)
+        if (availableWeaponPrefabs.Count > 0)
         {
-            EquipWeapon(startingWeaponPrefab);
+            EquipWeapon(0);
         }
-=======
-       if (availableWeaponPrefabs.Count > 0)
-    {
-        EquipWeapon(0); // Equip the weapon at index 0
-    }
-        baseScale = transform.localScale;
->>>>>>> c9b7d67bde78f12ae1349218428c2a48a0b631f5
 
         baseScale = transform.localScale;
         currentHealth = maxHealth;
@@ -128,7 +121,6 @@ public class move : MonoBehaviour
     void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         if (moveInput < 0)
@@ -183,7 +175,7 @@ public class move : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount) // So bullets can access it
+    public void TakeDamage(int amount)
     {
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
@@ -213,7 +205,6 @@ public class move : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 10f;
 
-        // Disable player collider to fall through ground
         if (playerCollider != null)
         {
             playerCollider.enabled = false;
@@ -221,28 +212,24 @@ public class move : MonoBehaviour
     }
 
     public void EquipWeapon(int weaponIndex)
-{
-    // Check if the index is valid and not the currently equipped weapon
-    if (weaponIndex < 0 || weaponIndex >= availableWeaponPrefabs.Count || weaponIndex == currentWeaponIndex)
     {
-        return; // Invalid index or already equipped
+        if (weaponIndex < 0 || weaponIndex >= availableWeaponPrefabs.Count || weaponIndex == currentWeaponIndex)
+        {
+            return;
+        }
+
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+
+        currentWeaponIndex = weaponIndex;
+        GameObject weaponToEquipPrefab = availableWeaponPrefabs[currentWeaponIndex];
+
+        GameObject newWeaponObject = Instantiate(weaponToEquipPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
+        newWeaponObject.transform.SetParent(weaponHoldPoint);
+
+        currentWeapon = newWeaponObject.GetComponent<Weapon>();
+        Debug.Log("Equipped weapon: " + newWeaponObject.name);
     }
-
-    // Destroy the old weapon if one exists
-    if (currentWeapon != null)
-    {
-        Destroy(currentWeapon.gameObject);
-    }
-
-    // Set the new weapon index
-    currentWeaponIndex = weaponIndex;
-    GameObject weaponToEquipPrefab = availableWeaponPrefabs[currentWeaponIndex];
-
-    // Instantiate and parent the new weapon
-    GameObject newWeaponObject = Instantiate(weaponToEquipPrefab, weaponHoldPoint.position, weaponHoldPoint.rotation);
-    newWeaponObject.transform.SetParent(weaponHoldPoint);
-
-    currentWeapon = newWeaponObject.GetComponent<Weapon>();
-    Debug.Log("Equipped weapon: " + newWeaponObject.name);
-}
 }
