@@ -87,19 +87,27 @@ public class PlayerCombat : MonoBehaviour
     }
 
     void GunAttack()
+{
+    if (bulletPrefab == null || gunFirePoint == null) return;
+
+    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    Vector2 direction = (mouseWorldPos - gunFirePoint.position).normalized;
+
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+    GameObject bullet = Instantiate(bulletPrefab, gunFirePoint.position, rotation);
+
+    // Ensure bullet knows it's from the player
+    Bullet bulletScript = bullet.GetComponent<Bullet>();
+    if (bulletScript != null)
     {
-        if (bulletPrefab == null || gunFirePoint == null) return;
-
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mouseWorldPos - gunFirePoint.position).normalized;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-        Instantiate(bulletPrefab, gunFirePoint.position, rotation);
-
-        Debug.Log("Gun fired toward: " + direction);
+        bulletScript.isFromEnemy = false;
     }
+
+    Debug.Log("Gun fired toward: " + direction);
+}
+
 
     void OnDrawGizmosSelected()
     {

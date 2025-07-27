@@ -3,40 +3,49 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    public float speed = 10f;          // Speed of the bullet
-    public int damage = 20;            // Damage dealt to enemies
-    public float lifetime = 2f;        // How long before the bullet is auto-destroyed
-    public LayerMask enemyLayer;       // Layer for detecting enemies
+    public float speed = 10f;
+    public int damage = 20;
+    public float lifetime = 2f;
+    public bool isFromEnemy = false;
 
     void Start()
     {
-        // Destroy bullet after a set lifetime to avoid clutter
         Destroy(gameObject, lifetime);
     }
 
     void Update()
     {
-        // Move bullet forward along its local right direction
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the object hit is on the enemy layer
-        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
+        if (isFromEnemy)
         {
-            // Attempt to deal damage to enemy
-            EnemyHealth1 enemyHealth = collision.GetComponent<EnemyHealth1>();
-            if (enemyHealth != null)
+            // Enemy bullet hits player
+            PlayerHealth player = collision.GetComponent<PlayerHealth>();
+            if (player != null)
             {
-                enemyHealth.TakeDamage(damage);
+                player.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
             }
-
-            Destroy(gameObject); // Destroy bullet on impact
         }
-        else if (!collision.isTrigger)
+        else
         {
-            // If it hits a wall or other solid, destroy the bullet
+            // Player bullet hits enemy
+            EnemyHealth1 enemy = collision.GetComponent<EnemyHealth1>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        // Destroy on contact with solid objects (not triggers)
+        if (!collision.isTrigger)
+        {
             Destroy(gameObject);
         }
     }

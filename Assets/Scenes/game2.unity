@@ -2625,7 +2625,7 @@ MonoBehaviour:
   - {fileID: 1992339587}
   - {fileID: 1340943341}
   - {fileID: 75589062}
-  startSpeed: 0.01
+  startSpeed: 3
   speedIncreaseInterval: 10
   speedIncrement: 0.5
 --- !u!4 &1601127717
